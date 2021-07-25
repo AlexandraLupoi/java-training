@@ -1,5 +1,7 @@
 package clean.code.chess.requirements;
 
+import static java.lang.Math.abs;
+
 public class Pawn {
 
     private ChessBoard chessBoard;
@@ -11,7 +13,7 @@ public class Pawn {
         this.pieceColor = pieceColor;
     }
 
-    public ChessBoard getChesssBoard() {
+    public ChessBoard getChessBoard() {
         return chessBoard;
     }
 
@@ -44,7 +46,19 @@ public class Pawn {
     }
 
     public void Move(MovementType movementType, int newX, int newY) {
-        throw new UnsupportedOperationException("Need to implement Pawn.Move()") ;
+        if(movementType == MovementType.MOVE) {
+            if(newX != xCoordinate) {
+                return;
+            }
+        } else if(movementType == MovementType.CAPTURE) {
+            if(abs(newX - xCoordinate) != 1) {
+                return;
+            }
+        }
+        if(abs(newY - yCoordinate) == 1) {
+            xCoordinate = newX;
+            yCoordinate = newY;
+        }
     }
 
     @Override
